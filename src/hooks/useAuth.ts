@@ -3,9 +3,11 @@ import axios from "axios";
 
 import { User } from "../types/api/user";
 import { useHistory } from "react-router-dom";
+import { useMessage } from "../hooks/useMessage";
 
 export const useAuth = () => {
   const history = useHistory();
+  const { showMessage } = useMessage();
 
   const [loading, setLoading] = useState(false);
 
@@ -17,15 +19,19 @@ export const useAuth = () => {
         .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           if (res.data) {
+            showMessage({ title: "ログインしました", status: "success" });
             history.push("/home");
           } else {
-            alert("not found user");
+            showMessage({ title: "ユーザが見つかりません", status: "error" });
           }
         })
-        .catch(() => alert("ログインできません"))
+        .catch(() =>
+          showMessage({ title: "ログインできません", status: "error" })
+        )
+
         .finally(() => setLoading(false));
     },
-    [history]
+    [history, showMessage]
   );
   return { login, loading };
 };
