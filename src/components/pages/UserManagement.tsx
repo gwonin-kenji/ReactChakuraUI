@@ -2,10 +2,17 @@
 
 import {
   Center,
+  FormControl,
+  FormLabel,
+  Input,
   Modal,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
+  ModalHeader,
   ModalOverlay,
   Spinner,
+  Stack,
   useDisclosure,
   Wrap,
   WrapItem
@@ -43,10 +50,36 @@ export const UserManagement: VFC = memo(() => {
           ))}
         </Wrap>
       )}
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        autoFocus={false}
+        motionPreset="slideInBottom"
+      >
         <ModalOverlay />
-        <ModalContent>
-          <p>test</p>
+        <ModalContent pb={6}>
+          <ModalHeader>ユーザ詳細</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody mx={4}>
+            <Stack spacing={4}>
+              <FormControl>
+                <FormLabel>name</FormLabel>
+                <Input value="Mike" isReadOnly />
+              </FormControl>
+              <FormControl>
+                <FormLabel>full name</FormLabel>
+                <Input value="Mike Trout" isReadOnly />
+              </FormControl>
+              <FormControl>
+                <FormLabel>email</FormLabel>
+                <Input value="mike@gmail.com" isReadOnly />
+              </FormControl>
+              <FormControl>
+                <FormLabel>tel</FormLabel>
+                <Input value="000-000-000" isReadOnly />
+              </FormControl>
+            </Stack>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
